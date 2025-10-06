@@ -9,18 +9,14 @@ import { Menu, Scissors } from 'lucide-react';
 export function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
+
   useEffect(() => {
     setHasMounted(true);
+    // In a real app, you'd check a token or session
+    // For now, we simulate this on the client
+    // For demo, let's just keep it simple.
+    // In a real app, this would check localStorage or a cookie.
   }, []);
-
-  // In a real app, you'd check a token or session
-  // For now, we simulate this on the client
-  useEffect(() => {
-    if(hasMounted) {
-      // For demo, let's just keep it simple.
-      // In a real app, this would check localStorage or a cookie.
-    }
-  }, [hasMounted]);
 
   const navLinks = [
     { href: '/', label: 'Home' },
