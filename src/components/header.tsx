@@ -1,22 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Scissors } from 'lucide-react';
+import { AuthButtons } from './auth-buttons';
 
 export function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
-
-  useEffect(() => {
-    setHasMounted(true);
-    // In a real app, you'd check a token or session
-    // For now, we simulate this on the client
-    // For demo, let's just keep it simple.
-    // In a real app, this would check localStorage or a cookie.
-  }, []);
+  const [isLoggedIn] = useState(false); // In a real app, this would come from a context or hook
 
   const navLinks = [
     { href: '/', label: 'Home' },
@@ -30,43 +22,6 @@ export function Header() {
         <Link href={link.href}>{link.label}</Link>
       </Button>
     ));
-
-  // Render a placeholder or nothing until the component has mounted
-  if (!hasMounted) {
-    return (
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
-          <div className="mr-4 hidden md:flex">
-            <Link href="/" className="flex items-center space-x-2">
-              <Scissors className="h-6 w-6 text-primary" />
-              <span className="font-bold font-headline">AI Hairstyle Studio</span>
-            </Link>
-          </div>
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" disabled>
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-            </Sheet>
-          </div>
-          <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
-             <Button variant="ghost" asChild>
-                <Link href='/'>Home</Link>
-            </Button>
-             <Button variant="ghost" asChild>
-                <Link href='/generator'>Generator</Link>
-            </Button>
-          </nav>
-          <div className="flex flex-1 items-center justify-end space-x-4">
-             {/* Render nothing here to avoid mismatch */}
-          </div>
-        </div>
-      </header>
-    );
-  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -105,21 +60,7 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end space-x-4">
-            {isLoggedIn ? (
-              <>
-                <span className="hidden md:inline">Welcome, User!</span>
-                <Button onClick={() => setIsLoggedIn(false)}>Logout</Button>
-              </>
-            ) : (
-              <>
-                <Button variant="ghost" asChild>
-                  <Link href="/login">Login</Link>
-                </Button>
-                <Button asChild>
-                  <Link href="/register">Register</Link>
-                </Button>
-              </>
-            )}
+            <AuthButtons />
         </div>
       </div>
     </header>
