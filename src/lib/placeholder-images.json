@@ -46,7 +46,7 @@
       "name": "Classic Bob",
       "category": "bob",
       "description": "A timeless classic bob cut.",
-      "imageUrl": "https://images.unsplash.com/photo-1610480356555-53531d70b4uh?q=80&w=400",
+      "imageUrl": "https://images.unsplash.com/photo-1610480356555-53531d70b40b?q=80&w=400",
       "imageHint": "bob haircut",
       "suitableFaces": [
         "oval",

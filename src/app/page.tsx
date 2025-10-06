@@ -24,7 +24,7 @@ export default function Home() {
     {
       "id": "before-after-3",
       "beforeUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400",
-      "afterUrl": "https://images.unsplash.com/photo-1610480356555-53531d70b4uh?q=80&w=400",
+      "afterUrl": "https://images.unsplash.com/photo-1610480356555-53531d70b40b?q=80&w=400",
       "hint": "woman smiling"
     },
     {

@@ -11,14 +11,14 @@ const mockHistory = [
   {
     id: 'gen1',
     inputImageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200',
-    outputImageUrl: 'https://images.unsplash.com/photo-1597005743grabbing-the-bull-by-the-horns-200x200.jpg?q=80&w=200',
+    outputImageUrl: 'https://picsum.photos/seed/gen1/200/200',
     geminiAnalysis: 'Oval face, suggests long waves.',
     createdAt: '2023-10-27T10:00:00Z',
   },
   {
     id: 'gen2',
     inputImageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200',
-    outputImageUrl: 'https://images.unsplash.com/photo-1597005743grabbing-the-bull-by-the-horns-200x200.jpg?q=80&w=200',
+    outputImageUrl: 'https://picsum.photos/seed/gen2/200/200',
     geminiAnalysis: 'Heart-shaped face, suggests a bob.',
     createdAt: '2023-10-26T15:30:00Z',
   },
