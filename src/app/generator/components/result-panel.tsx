@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { findImage, type Hairstyle } from '@/lib/placeholder-images';
-import { Download, Share2, Sparkles, Wand2 } from 'lucide-react';
+import { Download, Share2, Sparkles, Wand2, ArrowLeft } from 'lucide-react';
 import { handleImageGeneration } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -68,7 +68,7 @@ export default function ResultPanel({
     switch (state) {
       case 'generating':
         return (
-          <div className="aspect-square w-full flex flex-col items-center justify-center bg-muted rounded-lg">
+          <div className="w-full h-full flex flex-col items-center justify-center bg-muted/50">
             <Wand2 className="w-16 h-16 text-primary animate-pulse" />
             <p className="mt-4 text-lg text-muted-foreground">Generating your new look...</p>
             <p className="text-sm text-muted-foreground">This may take a moment.</p>
@@ -76,27 +76,25 @@ export default function ResultPanel({
         );
       case 'generated':
         return (
-          <div className="relative">
+          <div className="relative w-full h-full">
             <Image
               src={generatedImage!}
               alt="Generated hairstyle"
-              width={512}
-              height={512}
-              className="rounded-lg object-cover w-full shadow-lg"
+              fill
+              className="object-contain"
             />
           </div>
         );
       case 'analyzing':
-        return (
-          <div className="relative">
+         return (
+          <div className="relative w-full h-full">
             <Image
               src={uploadedImage!}
               alt="User upload"
-              width={512}
-              height={512}
-              className="rounded-lg object-cover w-full shadow-lg opacity-30"
+              fill
+              className="object-contain opacity-30"
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 rounded-lg">
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/10">
               <Sparkles className="w-16 h-16 text-white animate-pulse" />
               <p className="mt-4 text-lg text-white font-semibold">Analyzing your face...</p>
             </div>
@@ -107,80 +105,37 @@ export default function ResultPanel({
       case 'error':
         if (uploadedImage) {
           return (
-            <Image
-              src={uploadedImage}
-              alt="User upload"
-              width={512}
-              height={512}
-              className="rounded-lg object-cover w-full shadow-lg"
-            />
+            <div className="relative w-full h-full">
+                <Image
+                src={uploadedImage}
+                alt="User upload"
+                fill
+                className="object-contain"
+                />
+            </div>
           );
         }
       // fallthrough for idle state
       default:
         return (
-          <div className="aspect-square w-full flex flex-col items-center justify-center bg-muted rounded-lg">
-            <Image
-              src={placeholder!.imageUrl}
-              alt={placeholder!.description}
-              data-ai-hint={placeholder!.imageHint}
-              width={256}
-              height={256}
-              className="rounded-lg opacity-50"
-            />
-            <p className="mt-4 text-muted-foreground">Your result will appear here</p>
+          <div className="w-full h-full flex flex-col items-center justify-center bg-muted/30">
+             <p className="mt-4 text-muted-foreground">Upload an image to start</p>
           </div>
         );
     }
   };
+  
+    React.useEffect(() => {
+        if(selectedHairstyle && uploadedImage && state !== 'generating' && state !== 'generated'){
+            onGenerate();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedHairstyle, uploadedImage, state]);
+
 
   return (
-    <Card className="shadow-lg">
-      <CardHeader>
-        <CardTitle className="font-headline">Preview</CardTitle>
-        <CardDescription>See your AI-generated hairstyle here.</CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        {renderContent()}
-        {analysisResult && state !== 'generating' && (
-          <Card className="bg-secondary/50">
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-primary" />
-                AI Analysis
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-foreground mb-2">{analysisResult.faceAnalysis}</p>
-              <p className="text-sm font-semibold">Suggested Styles:</p>
-              <ul className="list-disc list-inside text-sm text-muted-foreground">
-                {analysisResult.suggestedHairstyles.map((style, i) => (
-                  <li key={i}>{style}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        )}
-        {error && <p className="text-destructive text-center">{error}</p>}
-        {state !== 'generated' ? (
-          <Button onClick={onGenerate} disabled={!selectedHairstyle || state === 'generating'}>
-            Generate Hairstyle
-          </Button>
-        ) : (
-          <div className="flex gap-4">
-            <Button className="flex-1" asChild>
-              <a href={generatedImage!} download="hairstyle_result.png">
-                <Download className="mr-2 h-4 w-4" />
-                Download
-              </a>
-            </Button>
-            <Button variant="outline" className="flex-1" onClick={() => navigator.clipboard.writeText(window.location.href)}>
-              <Share2 className="mr-2 h-4 w-4" />
-              Share Link
-            </Button>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+    <div className="w-full h-full relative">
+       {renderContent()}
+    </div>
   );
 }

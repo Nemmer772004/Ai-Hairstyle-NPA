@@ -9,6 +9,8 @@ import HairstyleSelector from './components/hairstyle-selector';
 import ResultPanel from './components/result-panel';
 import { handleImageAnalysis } from '../actions';
 import type { AnalyzeFaceAndSuggestHairstylesOutput } from '@/ai/flows/analyze-face-and-suggest-hairstyles';
+import { ArrowLeft, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
 type GenerationState = 'idle' | 'uploaded' | 'analyzing' | 'analyzed' | 'generating' | 'generated' | 'error';
 
@@ -29,14 +31,15 @@ export default function GeneratorPage() {
     setSelectedHairstyle(null);
     setGeneratedImage(null);
     setError(null);
+    onAnalyze(dataUri);
   };
-
-  const onAnalyze = async () => {
-    if (!uploadedImage) return;
+  
+  const onAnalyze = async (image: string) => {
+    if (!image) return;
     setState('analyzing');
     setError(null);
     try {
-      const result = await handleImageAnalysis(uploadedImage);
+      const result = await handleImageAnalysis(image);
       setAnalysisResult(result);
       setState('analyzed');
       toast({
@@ -55,29 +58,24 @@ export default function GeneratorPage() {
     }
   };
 
+  const resetState = () => {
+    setState('idle');
+    setUploadedImage(null);
+    setAnalysisResult(null);
+    setSelectedHairstyle(null);
+    setGeneratedImage(null);
+    setError(null);
+  }
+
+  if (state === 'idle') {
+    return <ImageUploader onImageUpload={handleImageUpload} />;
+  }
+
   return (
-    <div className="container mx-auto p-4 md:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        {/* Left Column: Controls */}
-        <div className="flex flex-col gap-6">
-          <ImageUploader onImageUpload={handleImageUpload} />
-
-          {state !== 'idle' && (
-            <Button onClick={onAnalyze} disabled={state === 'analyzing' || state === 'generating'}>
-              {state === 'analyzing' ? 'Analyzing...' : 'Analyze My Face'}
-            </Button>
-          )}
-
-          <HairstyleSelector
-            selectedHairstyle={selectedHairstyle}
-            onSelectHairstyle={setSelectedHairstyle}
-            suggestedHairstyles={analysisResult?.suggestedHairstyles || []}
-          />
-        </div>
-
-        {/* Right Column: Results */}
-        <div className="sticky top-20">
-          <ResultPanel
+    <div className="grid grid-cols-1 md:grid-cols-3 min-h-screen">
+       {/* Left Panel: Result */}
+      <div className="md:col-span-2 bg-muted/30">
+        <ResultPanel
             state={state}
             setState={setState}
             uploadedImage={uploadedImage}
@@ -87,6 +85,31 @@ export default function GeneratorPage() {
             setGeneratedImage={setGeneratedImage}
             error={error}
             setError={setError}
+          />
+      </div>
+
+      {/* Right Panel: Controls */}
+      <div className="col-span-1 p-6 flex flex-col h-full bg-background">
+        <div className="flex items-center justify-between mb-6">
+            <Button variant="ghost" size="icon" onClick={resetState}>
+                <ArrowLeft />
+            </Button>
+            <h1 className="text-xl font-bold font-headline">Hairstyle</h1>
+            <div className="w-8"></div>
+        </div>
+
+        {analysisResult && (
+          <div className="mb-6 p-4 rounded-lg bg-secondary/50 border">
+            <h3 className="font-semibold flex items-center gap-2 mb-2"><Sparkles className="text-primary w-5 h-5"/> AI Analysis</h3>
+            <p className="text-sm text-muted-foreground">{analysisResult.faceAnalysis}</p>
+          </div>
+        )}
+        
+        <div className="flex-grow overflow-y-auto">
+          <HairstyleSelector
+            selectedHairstyle={selectedHairstyle}
+            onSelectHairstyle={setSelectedHairstyle}
+            suggestedHairstyles={analysisResult?.suggestedHairstyles || []}
           />
         </div>
       </div>

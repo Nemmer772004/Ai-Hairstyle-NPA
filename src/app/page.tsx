@@ -5,6 +5,8 @@ import { Sparkles, Palette, Scissors, Webcam, Upload, Wand2, Download } from 'lu
 import Image from 'next/image';
 import Link from 'next/link';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 
 export default function Home() {
   const heroImage = findImage('hero-before-after');
@@ -77,14 +79,16 @@ export default function Home() {
   ]
 
   return (
-    <div className="flex flex-col items-center">
-      <section className="relative w-full text-center py-20 md:py-32 lg:py-40 bg-gradient-to-br from-accent/50 to-background">
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow">
+      <section className="relative w-full text-center py-20 md:py-32 lg:py-40 bg-gradient-to-br from-pink-50 to-blue-50">
         <div className="container mx-auto px-4 relative">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground font-headline">
-            Try 140+ AI Hairstyles Free!
+            Try On Hairstyles
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground">
-            Upload your photo, get personalized AI suggestions, and see yourself in a brand new look instantly.
+            Discover your perfect look with our virtual hairstyle try-on. Use your camera or upload a photo.
           </p>
           <Button asChild size="lg" className="mt-8">
             <Link href="/generator">Start Now</Link>
@@ -190,6 +194,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
+      <Footer />
     </div>
   );
 }
