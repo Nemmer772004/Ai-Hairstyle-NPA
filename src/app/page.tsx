@@ -5,8 +5,6 @@ import { Sparkles, Palette, Scissors, Webcam, Upload, Wand2, Download } from 'lu
 import Image from 'next/image';
 import Link from 'next/link';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
 
 export default function Home() {
   const heroImage = findImage('hero-before-after');
@@ -79,9 +77,7 @@ export default function Home() {
   ]
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow">
+    <>
       <section className="relative w-full text-center py-20 md:py-32 lg:py-40 bg-gradient-to-br from-pink-50 to-blue-50">
         <div className="container mx-auto px-4 relative">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground font-headline">
@@ -194,8 +190,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      </main>
-      <Footer />
-    </div>
+    </>
   );
 }
