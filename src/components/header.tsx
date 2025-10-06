@@ -38,7 +38,14 @@ export function Header() {
             </Link>
           </div>
           <div className="md:hidden">
-            {/* Minimal structure for mobile layout consistency */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" disabled>
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle Menu</span>
+                </Button>
+              </SheetTrigger>
+            </Sheet>
           </div>
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
              <Button variant="ghost" asChild>
