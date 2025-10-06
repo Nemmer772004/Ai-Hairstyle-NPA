@@ -8,8 +8,6 @@ import { Menu, Scissors } from 'lucide-react';
 
 export function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // This is a mock login state. In a real app, this would come from a context or session.
-  // We use useEffect to avoid hydration mismatch.
   const [hasMounted, setHasMounted] = useState(false);
   useEffect(() => {
     setHasMounted(true);
@@ -27,6 +25,36 @@ export function Header() {
         <Link href={link.href}>{link.label}</Link>
       </Button>
     ));
+
+  // Render a placeholder or nothing until the component has mounted
+  if (!hasMounted) {
+    return (
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 items-center">
+          <div className="mr-4 hidden md:flex">
+            <Link href="/" className="flex items-center space-x-2">
+              <Scissors className="h-6 w-6 text-primary" />
+              <span className="font-bold font-headline">AI Hairstyle Studio</span>
+            </Link>
+          </div>
+          <div className="md:hidden">
+            {/* Minimal structure for mobile layout consistency */}
+          </div>
+          <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
+             <Button variant="ghost" asChild>
+                <Link href='/'>Home</Link>
+            </Button>
+             <Button variant="ghost" asChild>
+                <Link href='/generator'>Generator</Link>
+            </Button>
+          </nav>
+          <div className="flex flex-1 items-center justify-end space-x-4">
+             {/* Render nothing here to avoid mismatch */}
+          </div>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -65,8 +93,7 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end space-x-4">
-          {hasMounted && (
-            isLoggedIn ? (
+            {isLoggedIn ? (
               <>
                 <span className="hidden md:inline">Welcome, User!</span>
                 <Button onClick={() => setIsLoggedIn(false)}>Logout</Button>
@@ -80,8 +107,7 @@ export function Header() {
                   <Link href="/register">Register</Link>
                 </Button>
               </>
-            )
-          )}
+            )}
         </div>
       </div>
     </header>
