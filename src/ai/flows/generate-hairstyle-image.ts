@@ -1,5 +1,3 @@
-'use server';
-
 /**
  * @fileOverview A flow to generate an image of a user with a selected hairstyle.
  *
@@ -8,6 +6,7 @@
  * - GenerateHairstyleImageOutput - The return type for the generateHairstyleImage function.
  */
 
+import {defineFlow} from '@genkit-ai/flow';
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
@@ -32,42 +31,22 @@ const GenerateHairstyleImageOutputSchema = z.object({
 });
 export type GenerateHairstyleImageOutput = z.infer<typeof GenerateHairstyleImageOutputSchema>;
 
-export async function generateHairstyleImage(
-  input: GenerateHairstyleImageInput
-): Promise<GenerateHairstyleImageOutput> {
-  return generateHairstyleImageFlow(input);
-}
-
 const prompt = ai.definePrompt({
   name: 'generateHairstyleImagePrompt',
   input: {schema: GenerateHairstyleImageInputSchema},
   output: {schema: GenerateHairstyleImageOutputSchema},
-  prompt: `You are a professional photo editor who specializes in applying hairstyles to images of people's faces.
-
-You will take the input image of a face and overlay the hairstyle image onto the face, adjusting the size, position, and color of the hairstyle to match the face.
-
-Make sure the hairstyle looks realistic and natural.
-
-Input Face: {{media url=inputImageUrl}}
-
-Hairstyle: {{media url=hairstyleImageUrl}}
-
-{% if geminiAnalysis %}Gemini Analysis: {{geminiAnalysis}}{% endif %}
-{% if hairstyleName %}Hairstyle Name: {{hairstyleName}}{% endif %}
-
-Return the URL of the final image.
-`,
+  prompt: `You are a professional photo editor who specializes in applying hairstyles to images of people's faces.\n\nYou will take the input image of a face and overlay the hairstyle image onto the face, adjusting the size, position, and color of the hairstyle to match the face.\n\nMake sure the hairstyle looks realistic and natural.\n\nInput Face: {{media url=inputImageUrl}}\n\nHairstyle: {{media url=hairstyleImageUrl}}\n\n{% if geminiAnalysis %}Gemini Analysis: {{geminiAnalysis}}{% endif %}\n{% if hairstyleName %}Hairstyle Name: {{hairstyleName}}{% endif %}\n\nReturn the URL of the final image.\n`,
 });
 
-const generateHairstyleImageFlow = ai.defineFlow(
+export const generateHairstyleImage = defineFlow(
   {
     name: 'generateHairstyleImageFlow',
     inputSchema: GenerateHairstyleImageInputSchema,
     outputSchema: GenerateHairstyleImageOutputSchema,
   },
   async input => {
-    const {media} = await ai.generate({
-      model: 'googleai/gemini-2.5-flash-image-preview',
+    const response = await ai.generate({
+      model: 'googleai/gemini-1.5-flash',
       prompt: [
         {media: {url: input.inputImageUrl}},
         {media: {url: input.hairstyleImageUrl}},
@@ -80,6 +59,14 @@ const generateHairstyleImageFlow = ai.defineFlow(
       },
     });
 
-    return {outputImageUrl: media.url!};
+    const media = Array.isArray(response.media)
+      ? response.media.find(item => item?.url)
+      : response.media;
+
+    if (!media?.url) {
+      throw new Error('Failed to generate hairstyle image.');
+    }
+
+    return {outputImageUrl: media.url};
   }
 );

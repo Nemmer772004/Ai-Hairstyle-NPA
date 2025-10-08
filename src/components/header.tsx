@@ -1,19 +1,17 @@
-'use client';
-
-import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Scissors } from 'lucide-react';
 import { AuthButtons } from './auth-buttons';
+import { getCurrentUser } from '@/lib/auth';
 
-export function Header() {
-  const [isLoggedIn] = useState(false); // In a real app, this would come from a context or hook
+export async function Header() {
+  const user = await getCurrentUser();
 
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/generator', label: 'Generator' },
-    ...(isLoggedIn ? [{ href: '/history', label: 'History' }] : []),
+    ...(user ? [{ href: '/history', label: 'History' }] : []),
   ];
 
   const renderNavLinks = (isMobile = false) =>

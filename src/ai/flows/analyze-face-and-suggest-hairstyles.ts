@@ -1,4 +1,3 @@
-'use server';
 /**
  * @fileOverview An AI agent that analyzes a face in a photo and suggests suitable hairstyles.
  *
@@ -7,6 +6,7 @@
  * - AnalyzeFaceAndSuggestHairstylesOutput - The return type for the analyzeFaceAndSuggestHairstyles function.
  */
 
+import {defineFlow} from '@genkit-ai/flow';
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
@@ -25,12 +25,6 @@ const AnalyzeFaceAndSuggestHairstylesOutputSchema = z.object({
 });
 export type AnalyzeFaceAndSuggestHairstylesOutput = z.infer<typeof AnalyzeFaceAndSuggestHairstylesOutputSchema>;
 
-export async function analyzeFaceAndSuggestHairstyles(
-  input: AnalyzeFaceAndSuggestHairstylesInput
-): Promise<AnalyzeFaceAndSuggestHairstylesOutput> {
-  return analyzeFaceAndSuggestHairstylesFlow(input);
-}
-
 const prompt = ai.definePrompt({
   name: 'analyzeFaceAndSuggestHairstylesPrompt',
   input: {schema: AnalyzeFaceAndSuggestHairstylesInputSchema},
@@ -43,7 +37,7 @@ Consider face shape, skin tone, and current hairstyle trends when making your su
 Return the analysis of the face, and then a list of suggested hairstyles.`,
 });
 
-const analyzeFaceAndSuggestHairstylesFlow = ai.defineFlow(
+export const analyzeFaceAndSuggestHairstyles = defineFlow(
   {
     name: 'analyzeFaceAndSuggestHairstylesFlow',
     inputSchema: AnalyzeFaceAndSuggestHairstylesInputSchema,
