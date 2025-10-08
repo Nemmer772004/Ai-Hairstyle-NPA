@@ -1,12 +1,11 @@
 'use server';
 
-import { runFlow } from '@genkit-ai/flow';
 import {
-  analyzeFaceAndSuggestHairstyles,
+  analyzeFaceAndSuggestHairstylesAction as analyzeFaceAndSuggestHairstyles,
   type AnalyzeFaceAndSuggestHairstylesOutput,
 } from '@/ai/flows/analyze-face-and-suggest-hairstyles';
 import {
-  generateHairstyleImage,
+  generateHairstyleImageAction as generateHairstyleImage,
   type GenerateHairstyleImageOutput,
 } from '@/ai/flows/generate-hairstyle-image';
 import type { Hairstyle } from '@/lib/placeholder-images';
@@ -15,9 +14,7 @@ export async function handleImageAnalysis(
   photoDataUri: string
 ): Promise<AnalyzeFaceAndSuggestHairstylesOutput> {
   try {
-    const result = await runFlow(analyzeFaceAndSuggestHairstyles, {
-      photoDataUri,
-    });
+    const result = await analyzeFaceAndSuggestHairstyles({ photoDataUri });
     return result;
   } catch (error) {
     console.error('Error in handleImageAnalysis:', error);
@@ -31,25 +28,48 @@ export async function handleImageGeneration(
   analysis?: string
 ): Promise<GenerateHairstyleImageOutput> {
   try {
-    // 1. Fetch hairstyle image as a data URI
-    const response = await fetch(hairstyle.imageUrl);
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch hairstyle image from ${hairstyle.imageUrl}`
+    let hairstyleDataUri: string | undefined;
+
+    // 1. Attempt to fetch hairstyle image as a data URI when available
+    try {
+      if (hairstyle.imageUrl.startsWith('data:')) {
+        hairstyleDataUri = hairstyle.imageUrl;
+      } else {
+        const response = await fetch(hairstyle.imageUrl);
+        if (response.ok) {
+          const imageBuffer = await response.arrayBuffer();
+          const mimeType = response.headers.get('content-type') || 'image/jpeg';
+          const base64Image = Buffer.from(imageBuffer).toString('base64');
+          hairstyleDataUri = `data:${mimeType};base64,${base64Image}`;
+        } else {
+          console.warn(
+            `Hairstyle image returned ${response.status} from ${hairstyle.imageUrl}`
+          );
+        }
+      }
+    } catch (imageError) {
+      console.warn(
+        `Unable to fetch hairstyle image from ${hairstyle.imageUrl}:`,
+        imageError
       );
     }
-    const imageBuffer = await response.arrayBuffer();
-    const mimeType = response.headers.get('content-type') || 'image/jpeg';
-    const base64Image = Buffer.from(imageBuffer).toString('base64');
-    const hairstyleDataUri = `data:${mimeType};base64,${base64Image}`;
+
+    const hairstyleSummaryParts = [
+      hairstyle.description,
+      hairstyle.suitableFaces?.length
+        ? `Commonly suits: ${hairstyle.suitableFaces.join(', ')} faces.`
+        : null,
+    ].filter(Boolean);
 
     // 2. Call AI flow using runFlow
-    const result = await runFlow(generateHairstyleImage, {
+    const genInput: any = {
       inputImageUrl: inputImageUrl,
-      hairstyleImageUrl: hairstyleDataUri,
-      hairstyleName: hairstyle.name,
       geminiAnalysis: analysis,
-    });
+      hairstyleName: hairstyle.name,
+    };
+    if (hairstyleDataUri) genInput.hairstyleImageUrl = hairstyleDataUri;
+
+    const result = await generateHairstyleImage(genInput);
 
     return result;
   } catch (error) {
@@ -65,6 +85,6 @@ export async function handleImageGeneration(
         'AI quota exceeded. Please wait or upgrade your Gemini API plan before trying again.'
       );
     }
-    throw new Error('Failed to generate hairstyle. Please try again.');
+    throw new Error('Failed to analyze hairstyle compatibility. Please try again.');
   }
 }

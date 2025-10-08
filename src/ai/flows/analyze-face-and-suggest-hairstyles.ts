@@ -1,3 +1,4 @@
+'use server';
 /**
  * @fileOverview An AI agent that analyzes a face in a photo and suggests suitable hairstyles.
  *
@@ -6,7 +7,6 @@
  * - AnalyzeFaceAndSuggestHairstylesOutput - The return type for the analyzeFaceAndSuggestHairstyles function.
  */
 
-import {defineFlow} from '@genkit-ai/flow';
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
@@ -25,6 +25,9 @@ const AnalyzeFaceAndSuggestHairstylesOutputSchema = z.object({
 });
 export type AnalyzeFaceAndSuggestHairstylesOutput = z.infer<typeof AnalyzeFaceAndSuggestHairstylesOutputSchema>;
 
+// We'll export the flow object at the end of this file so it's defined
+// before being referenced. See bottom of file for the export.
+
 const prompt = ai.definePrompt({
   name: 'analyzeFaceAndSuggestHairstylesPrompt',
   input: {schema: AnalyzeFaceAndSuggestHairstylesInputSchema},
@@ -37,7 +40,7 @@ Consider face shape, skin tone, and current hairstyle trends when making your su
 Return the analysis of the face, and then a list of suggested hairstyles.`,
 });
 
-export const analyzeFaceAndSuggestHairstyles = defineFlow(
+const analyzeFaceAndSuggestHairstylesFlow = ai.defineFlow(
   {
     name: 'analyzeFaceAndSuggestHairstylesFlow',
     inputSchema: AnalyzeFaceAndSuggestHairstylesInputSchema,
@@ -48,3 +51,18 @@ export const analyzeFaceAndSuggestHairstyles = defineFlow(
     return output!;
   }
 );
+
+// Export the flow object itself so utilities like `runFlow` receive
+// an object with `inputSchema`/`outputSchema` instead of a wrapper
+// function which caused `inputSchema` to be undefined.
+export const analyzeFaceAndSuggestHairstyles = analyzeFaceAndSuggestHairstylesFlow;
+
+// Also export a callable helper for server code to directly run the flow's
+// prompt and return typed output. This avoids relying on `runFlow` which
+// may expect a different shape in some environments.
+export async function analyzeFaceAndSuggestHairstylesAction(
+  input: AnalyzeFaceAndSuggestHairstylesInput
+): Promise<AnalyzeFaceAndSuggestHairstylesOutput> {
+  const {output} = await prompt(input as any);
+  return output!;
+}

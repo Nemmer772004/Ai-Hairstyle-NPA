@@ -1,3 +1,5 @@
+'use server';
+
 /**
  * @fileOverview A flow to generate an image of a user with a selected hairstyle.
  *
@@ -6,7 +8,6 @@
  * - GenerateHairstyleImageOutput - The return type for the generateHairstyleImage function.
  */
 
-import {defineFlow} from '@genkit-ai/flow';
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
@@ -26,8 +27,20 @@ const GenerateHairstyleImageInputSchema = z.object({
 });
 export type GenerateHairstyleImageInput = z.infer<typeof GenerateHairstyleImageInputSchema>;
 
+const FeatureBreakdownItem = z.object({
+  feature: z.string(),
+  suitability: z.string(),
+  insight: z.string(),
+  recommendation: z.string().optional(),
+});
+
 const GenerateHairstyleImageOutputSchema = z.object({
-  outputImageUrl: z.string().describe('The URL of the generated image with the hairstyle.'),
+  // keep outputImageUrl optional: UI may display an overlaid image later
+  outputImageUrl: z.string().optional(),
+  summary: z.string().describe('A short summary of hairstyle compatibility.'),
+  compatibilityLabel: z.string().describe('Overall compatibility label (e.g., Good, Fair, Poor).'),
+  compatibilityScore: z.number().optional().describe('Numeric compatibility score 0-100.'),
+  featureBreakdown: z.array(FeatureBreakdownItem).describe('Breakdown of compatibility by facial feature.'),
 });
 export type GenerateHairstyleImageOutput = z.infer<typeof GenerateHairstyleImageOutputSchema>;
 
@@ -35,38 +48,48 @@ const prompt = ai.definePrompt({
   name: 'generateHairstyleImagePrompt',
   input: {schema: GenerateHairstyleImageInputSchema},
   output: {schema: GenerateHairstyleImageOutputSchema},
-  prompt: `You are a professional photo editor who specializes in applying hairstyles to images of people's faces.\n\nYou will take the input image of a face and overlay the hairstyle image onto the face, adjusting the size, position, and color of the hairstyle to match the face.\n\nMake sure the hairstyle looks realistic and natural.\n\nInput Face: {{media url=inputImageUrl}}\n\nHairstyle: {{media url=hairstyleImageUrl}}\n\n{% if geminiAnalysis %}Gemini Analysis: {{geminiAnalysis}}{% endif %}\n{% if hairstyleName %}Hairstyle Name: {{hairstyleName}}{% endif %}\n\nReturn the URL of the final image.\n`,
+  prompt: `You are an expert stylist and facial-analysis assistant.
+
+Analyze how well the hairstyle (provided as an image) suits the face in the input image.
+
+Inputs:
+- Face image: {{media url=inputImageUrl}}
+- Hairstyle image: {{media url=hairstyleImageUrl}}
+{% if geminiAnalysis %}- Additional face analysis: {{geminiAnalysis}}{% endif %}
+{% if hairstyleName %}- Hairstyle name: {{hairstyleName}}{% endif %}
+
+Produce a JSON object matching the output schema. Include:
+- summary: one-sentence overall conclusion.
+- compatibilityLabel: one-word label (Good, Fair, Poor).
+- compatibilityScore: numeric score from 0 to 100 (optional but preferred).
+- featureBreakdown: array of objects for important features (e.g., Face shape, Hairline, Forehead, Cheeks, Jaw) each with 'feature', 'suitability', 'insight', and optional 'recommendation'.
+
+Be concise and factual. Return only the structured output.
+`,
 });
 
-export const generateHairstyleImage = defineFlow(
+const generateHairstyleImageFlow = ai.defineFlow(
   {
     name: 'generateHairstyleImageFlow',
     inputSchema: GenerateHairstyleImageInputSchema,
     outputSchema: GenerateHairstyleImageOutputSchema,
   },
   async input => {
-    const response = await ai.generate({
-      model: 'googleai/gemini-1.5-flash',
-      prompt: [
-        {media: {url: input.inputImageUrl}},
-        {media: {url: input.hairstyleImageUrl}},
-        {
-          text: `You are a professional photo editor who specializes in applying hairstyles to images of people's faces.\n\nYou will take the input image of a face and overlay the hairstyle image onto the face, adjusting the size, position, and color of the hairstyle to match the face.\n\nMake sure the hairstyle looks realistic and natural.\n\n{% if input.geminiAnalysis %}Gemini Analysis: ${input.geminiAnalysis}{% endif %}\n{% if input.hairstyleName %}Hairstyle Name: ${input.hairstyleName}{% endif %}`,
-        },
-      ],
-      config: {
-        responseModalities: ['TEXT', 'IMAGE'],
-      },
-    });
-
-    const media = Array.isArray(response.media)
-      ? response.media.find(item => item?.url)
-      : response.media;
-
-    if (!media?.url) {
-      throw new Error('Failed to generate hairstyle image.');
-    }
-
-    return {outputImageUrl: media.url};
+    // Use the prompt defined above to return a structured analysis instead of
+    // producing an image. The prompt's output schema ensures the response is
+    // validated and typed.
+    const {output} = await prompt(input);
+    return output!;
   }
 );
+
+// Export the flow object so `runFlow` gets a Flow-compatible value.
+export const generateHairstyleImage = generateHairstyleImageFlow;
+
+// Callable wrapper for server code to get the analysis output directly.
+export async function generateHairstyleImageAction(
+  input: GenerateHairstyleImageInput
+): Promise<GenerateHairstyleImageOutput> {
+  const {output} = await prompt(input as any);
+  return output!;
+}

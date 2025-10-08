@@ -9,8 +9,8 @@ import HairstyleSelector from './components/hairstyle-selector';
 import ResultPanel from './components/result-panel';
 import { handleImageAnalysis } from '../actions';
 import type { AnalyzeFaceAndSuggestHairstylesOutput } from '@/ai/flows/analyze-face-and-suggest-hairstyles';
+import type { GenerateHairstyleImageOutput } from '@/ai/flows/generate-hairstyle-image';
 import { ArrowLeft, Sparkles } from 'lucide-react';
-import Link from 'next/link';
 
 type GenerationState = 'idle' | 'uploaded' | 'analyzing' | 'analyzed' | 'generating' | 'generated' | 'error';
 
@@ -19,7 +19,7 @@ export default function GeneratorPage() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [analysisResult, setAnalysisResult] = useState<AnalyzeFaceAndSuggestHairstylesOutput | null>(null);
   const [selectedHairstyle, setSelectedHairstyle] = useState<Hairstyle | null>(null);
-  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
+  const [hairstyleAnalysis, setHairstyleAnalysis] = useState<GenerateHairstyleImageOutput | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const { toast } = useToast();
@@ -29,7 +29,7 @@ export default function GeneratorPage() {
     setState('uploaded');
     setAnalysisResult(null);
     setSelectedHairstyle(null);
-    setGeneratedImage(null);
+    setHairstyleAnalysis(null);
     setError(null);
     onAnalyze(dataUri);
   };
@@ -63,7 +63,7 @@ export default function GeneratorPage() {
     setUploadedImage(null);
     setAnalysisResult(null);
     setSelectedHairstyle(null);
-    setGeneratedImage(null);
+    setHairstyleAnalysis(null);
     setError(null);
   }
 
@@ -81,8 +81,8 @@ export default function GeneratorPage() {
             uploadedImage={uploadedImage}
             analysisResult={analysisResult}
             selectedHairstyle={selectedHairstyle}
-            generatedImage={generatedImage}
-            setGeneratedImage={setGeneratedImage}
+            hairstyleAnalysis={hairstyleAnalysis}
+            setHairstyleAnalysis={setHairstyleAnalysis}
             error={error}
             setError={setError}
           />
