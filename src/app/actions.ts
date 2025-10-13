@@ -9,16 +9,35 @@ import {
   type GenerateHairstyleImageOutput,
 } from '@/ai/flows/generate-hairstyle-image';
 import type { Hairstyle } from '@/lib/placeholder-images';
+import { getCurrentUser } from '@/lib/auth';
+import { logActivity } from '@/lib/activity';
+import { createHistoryEntry } from '@/lib/history';
+import { extractTagsFromHairstyle, extractTagsFromText } from '@/lib/tags';
+import { recordEngagement } from '@/lib/rewards';
+import UserModel from '@/models/User';
+import { invalidateRecommendations } from '@/lib/recommendations';
 
 export async function handleImageAnalysis(
   photoDataUri: string
 ): Promise<AnalyzeFaceAndSuggestHairstylesOutput> {
   try {
     const result = await analyzeFaceAndSuggestHairstyles({ photoDataUri });
+    const normalizedAnalysis = result.faceAnalysis.toUpperCase();
+    if (
+      normalizedAnalysis.includes('KHÔNG PHẢI KHUÔN MẶT NGƯỜI') ||
+      (result.suggestedHairstyles?.length ?? 0) === 0
+    ) {
+      throw new Error('Không phát hiện khuôn mặt người trong ảnh. Vui lòng chọn ảnh chân dung rõ nét.');
+    }
+    const user = await getCurrentUser();
+    if (user) {
+      await logActivity(user.id, 'analysis:run', 'Người dùng yêu cầu phân tích khuôn mặt');
+      await recordEngagement(user.id, 'analysis:run');
+    }
     return result;
   } catch (error) {
     console.error('Error in handleImageAnalysis:', error);
-    throw new Error('Failed to analyze image. Please try again.');
+    throw new Error('Không thể phân tích hình ảnh. Vui lòng thử lại.');
   }
 }
 
@@ -28,6 +47,7 @@ export async function handleImageGeneration(
   analysis?: string
 ): Promise<GenerateHairstyleImageOutput> {
   try {
+    const user = await getCurrentUser();
     let hairstyleDataUri: string | undefined;
 
     // 1. Attempt to fetch hairstyle image as a data URI when available
@@ -54,13 +74,6 @@ export async function handleImageGeneration(
       );
     }
 
-    const hairstyleSummaryParts = [
-      hairstyle.description,
-      hairstyle.suitableFaces?.length
-        ? `Commonly suits: ${hairstyle.suitableFaces.join(', ')} faces.`
-        : null,
-    ].filter(Boolean);
-
     // 2. Call AI flow using runFlow
     const genInput: any = {
       inputImageUrl: inputImageUrl,
@@ -70,6 +83,52 @@ export async function handleImageGeneration(
     if (hairstyleDataUri) genInput.hairstyleImageUrl = hairstyleDataUri;
 
     const result = await generateHairstyleImage(genInput);
+
+    if (user) {
+      const tags = new Set<string>(extractTagsFromHairstyle(hairstyle));
+      extractTagsFromText(result.summary).forEach(tag => tags.add(tag));
+      if (result.compatibilityLabel) {
+        tags.add(result.compatibilityLabel.toLowerCase());
+      }
+
+      const history = await createHistoryEntry({
+        userId: user.id,
+        hairstyleId: hairstyle.id,
+        hairstyleName: hairstyle.name,
+        summary: result.summary,
+        inputImage: inputImageUrl,
+        outputImage: result.outputImageUrl,
+        compatibilityLabel: result.compatibilityLabel,
+        compatibilityScore: result.compatibilityScore,
+        featureBreakdown: result.featureBreakdown,
+        productSuggestions: result.productSuggestions,
+        tags: Array.from(tags),
+      });
+
+      const isMatch = result.compatibilityLabel
+        ? result.compatibilityLabel.toLowerCase().includes('good')
+        : undefined;
+
+      if (typeof isMatch === 'boolean') {
+        await UserModel.updateOne(
+          { _id: user.id },
+          {
+            $inc: {
+              'stats.totalFittingMatches': isMatch ? 1 : 0,
+              'stats.totalFittingMisses': isMatch ? 0 : 1,
+            },
+          }
+        );
+      }
+
+      await logActivity(user.id, 'history:create', 'Người dùng đã tạo báo cáo kiểu tóc', {
+        historyId: history._id.toString(),
+        hairstyleId: hairstyle.id,
+        compatibility: result.compatibilityLabel,
+      });
+      await recordEngagement(user.id, 'history:create');
+      await invalidateRecommendations(user.id);
+    }
 
     return result;
   } catch (error) {
@@ -82,9 +141,9 @@ export async function handleImageGeneration(
       message.includes('rate limit')
     ) {
       throw new Error(
-        'AI quota exceeded. Please wait or upgrade your Gemini API plan before trying again.'
+        'Đã vượt giới hạn API của AI. Vui lòng chờ thêm hoặc nâng cấp gói Gemini trước khi thử lại.'
       );
     }
-    throw new Error('Failed to analyze hairstyle compatibility. Please try again.');
+    throw new Error('Không thể đánh giá độ phù hợp của kiểu tóc. Vui lòng thử lại.');
   }
 }

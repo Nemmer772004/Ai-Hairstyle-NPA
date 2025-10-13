@@ -35,7 +35,7 @@ export function LoginForm({ successMessage }: LoginFormProps) {
           id="email"
           name="email"
           type="email"
-          placeholder="m@example.com"
+          placeholder="ban@example.com"
           required
         />
         {currentState.fieldErrors?.email ? (
@@ -45,8 +45,8 @@ export function LoginForm({ successMessage }: LoginFormProps) {
         ) : null}
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="password">Password</Label>
-        <Input id="password" name="password" type="password" required />
+        <Label htmlFor="password">Mật khẩu</Label>
+        <Input id="password" name="password" type="password" placeholder="••••••••" required />
         {currentState.fieldErrors?.password ? (
           <p className="text-sm text-destructive">
             {currentState.fieldErrors.password}
@@ -64,7 +64,7 @@ export function LoginForm({ successMessage }: LoginFormProps) {
         </p>
       ) : null}
       <Button className="w-full" type="submit" disabled={isPending}>
-        Sign in
+        Đăng nhập
       </Button>
     </form>
   );

@@ -1,33 +1,33 @@
 export default function PrivacyPage() {
     return (
       <div className="container mx-auto p-4 md:p-8 max-w-4xl">
-        <h1 className="text-3xl font-bold mb-6 font-headline">Privacy Policy</h1>
+        <h1 className="text-3xl font-bold mb-6 font-headline">Chính sách bảo mật</h1>
         <div className="space-y-4 text-muted-foreground">
           <p>
-            Welcome to AI Hairstyle Studio. Your privacy is critically important to us. This privacy policy document outlines the types of personal information that is received and collected by AI Hairstyle Studio and how it is used.
+            Chào mừng bạn đến với Studio Tóc AI. Chúng tôi coi trọng quyền riêng tư của bạn và tài liệu này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu cá nhân.
           </p>
-          <h2 className="text-2xl font-semibold text-foreground pt-4">Image Data</h2>
+          <h2 className="text-2xl font-semibold text-foreground pt-4">Dữ liệu hình ảnh</h2>
           <p>
-            When you use our service, you may upload images of yourself. We use these images solely for the purpose of generating hairstyle previews with our AI model.
+            Khi sử dụng dịch vụ, bạn có thể tải lên ảnh chân dung. Chúng tôi chỉ dùng những hình ảnh này để tạo bản xem trước kiểu tóc bằng mô hình AI.
           </p>
           <p>
-            <strong>All uploaded images and generated results are automatically and permanently deleted from our servers after 24 hours.</strong> We do not store your images long-term, nor do we use them for any purpose other than the hairstyle generation service you have requested. We do not sell, trade, or otherwise transfer your images to outside parties.
+            <strong>Tất cả ảnh tải lên và kết quả tạo ra sẽ được xoá tự động, vĩnh viễn khỏi máy chủ sau 24 giờ.</strong> Chúng tôi không lưu trữ hình ảnh dài hạn và không sử dụng cho bất kỳ mục đích nào khác ngoài tính năng thử kiểu tóc. Dữ liệu hình ảnh không được bán, trao đổi hay chuyển giao cho bên thứ ba.
           </p>
-          <h2 className="text-2xl font-semibold text-foreground pt-4">Account Information</h2>
+          <h2 className="text-2xl font-semibold text-foreground pt-4">Thông tin tài khoản</h2>
           <p>
-            If you choose to create an account, we collect your username, email, and a hashed password. This information is used to provide you with access to your generation history and to personalize your experience. We will not share your personal information with any third party without your consent, except as required by law.
+            Khi tạo tài khoản, chúng tôi lưu trữ tên người dùng, email và mật khẩu đã mã hoá. Những dữ liệu này giúp bạn xem lại lịch sử, đồng thời cá nhân hoá trải nghiệm. Thông tin cá nhân sẽ không được chia sẻ cho bên thứ ba nếu không có sự đồng ý của bạn, trừ trường hợp pháp luật yêu cầu.
           </p>
-          <h2 className="text-2xl font-semibold text-foreground pt-4">Log Files</h2>
+          <h2 className="text-2xl font-semibold text-foreground pt-4">Nhật ký hệ thống</h2>
           <p>
-            Like many other Web sites, AI Hairstyle Studio makes use of log files. The information inside the log files includes internet protocol (IP) addresses, type of browser, Internet Service Provider (ISP), date/time stamp, referring/exit pages, and number of clicks to analyze trends, administer the site, track user's movement around the site, and gather demographic information. IP addresses, and other such information are not linked to any information that is personally identifiable.
+            Giống nhiều website khác, Studio Tóc AI sử dụng log hệ thống để phân tích xu hướng và cải thiện dịch vụ. Các log có thể bao gồm địa chỉ IP, loại trình duyệt, nhà cung cấp dịch vụ Internet, thời gian truy cập, trang giới thiệu/thoát và số lượt tương tác. Thông tin này không liên kết trực tiếp tới dữ liệu nhận dạng cá nhân.
           </p>
-          <h2 className="text-2xl font-semibold text-foreground pt-4">Consent</h2>
+          <h2 className="text-2xl font-semibold text-foreground pt-4">Sự đồng ý</h2>
           <p>
-            By using our website, you hereby consent to our privacy policy and agree to its terms.
+            Khi tiếp tục sử dụng trang web, bạn đồng ý với chính sách bảo mật và các điều khoản nêu trên.
           </p>
-          <h2 className="text-2xl font-semibold text-foreground pt-4">Changes to this Privacy Policy</h2>
+          <h2 className="text-2xl font-semibold text-foreground pt-4">Thay đổi chính sách</h2>
           <p>
-            This Privacy Policy is effective as of today and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page. We reserve the right to update or change our Privacy Policy at any time and you should check this Privacy Policy periodically.
+            Chính sách này có hiệu lực kể từ ngày ban hành và có thể được điều chỉnh để phù hợp với nhu cầu vận hành. Mọi cập nhật sẽ được công bố ngay trên trang này, vì vậy hãy kiểm tra định kỳ để nắm thông tin mới nhất.
           </p>
         </div>
       </div>

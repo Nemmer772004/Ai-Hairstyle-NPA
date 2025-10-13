@@ -10,10 +10,10 @@ export async function AuthButtons() {
     return (
       <>
         <Button variant="ghost" asChild>
-          <Link href="/login">Login</Link>
+          <Link href="/login">Đăng nhập</Link>
         </Button>
         <Button asChild>
-          <Link href="/register">Register</Link>
+          <Link href="/register">Đăng ký</Link>
         </Button>
       </>
     );
@@ -21,9 +21,9 @@ export async function AuthButtons() {
 
   return (
     <>
-      <span className="hidden md:inline">Welcome, {user.username}!</span>
+      <span className="hidden md:inline whitespace-nowrap">Xin chào, {user.username}!</span>
       <form action={logoutAction} className="inline">
-        <Button type="submit">Logout</Button>
+        <Button type="submit">Đăng xuất</Button>
       </form>
     </>
   );

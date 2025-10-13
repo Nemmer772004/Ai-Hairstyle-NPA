@@ -19,29 +19,29 @@ export type AuthFormState = {
 
 const registerSchema = z.object({
   username: z
-    .string({ required_error: 'Username is required.' })
+    .string({ required_error: 'Vui lòng nhập tên người dùng.' })
     .trim()
-    .min(3, 'Username must be at least 3 characters long.')
-    .max(32, 'Username must be at most 32 characters long.'),
+    .min(3, 'Tên người dùng phải dài ít nhất 3 ký tự.')
+    .max(32, 'Tên người dùng tối đa 32 ký tự.'),
   email: z
-    .string({ required_error: 'Email is required.' })
+    .string({ required_error: 'Vui lòng nhập email.' })
     .trim()
     .toLowerCase()
-    .email('Please provide a valid email.'),
+    .email('Email không hợp lệ, vui lòng kiểm tra lại.'),
   password: z
-    .string({ required_error: 'Password is required.' })
-    .min(8, 'Password must be at least 8 characters long.'),
+    .string({ required_error: 'Vui lòng nhập mật khẩu.' })
+    .min(8, 'Mật khẩu cần ít nhất 8 ký tự.'),
 });
 
 const loginSchema = z.object({
   email: z
-    .string({ required_error: 'Email is required.' })
+    .string({ required_error: 'Vui lòng nhập email.' })
     .trim()
     .toLowerCase()
-    .email('Please provide a valid email.'),
+    .email('Email không hợp lệ, vui lòng kiểm tra lại.'),
   password: z
-    .string({ required_error: 'Password is required.' })
-    .min(1, 'Password is required.'),
+    .string({ required_error: 'Vui lòng nhập mật khẩu.' })
+    .min(1, 'Mật khẩu không được bỏ trống.'),
 });
 
 export async function registerAction(
@@ -57,7 +57,7 @@ export async function registerAction(
   if (!parsed.success) {
     const fieldErrors = parsed.error.flatten().fieldErrors;
     return {
-      error: 'Please fix the errors below.',
+      error: 'Vui lòng kiểm tra lại thông tin.',
       fieldErrors: {
         username: fieldErrors.username?.[0],
         email: fieldErrors.email?.[0],
@@ -79,13 +79,13 @@ export async function registerAction(
   if (existingUser) {
     const fieldErrors: AuthFormState['fieldErrors'] = {};
     if (existingUser.email === email) {
-      fieldErrors.email = 'Email is already registered.';
+      fieldErrors.email = 'Email này đã được đăng ký.';
     }
     if (existingUser.username === username) {
-      fieldErrors.username = 'Username is already taken.';
+      fieldErrors.username = 'Tên người dùng đã được sử dụng.';
     }
     return {
-      error: 'Account already exists.',
+      error: 'Tài khoản đã tồn tại.',
       fieldErrors,
     };
   }
@@ -106,12 +106,12 @@ export async function registerAction(
     ) {
       return {
         error:
-          'MongoDB is running on a case-insensitive filesystem. Rename the database to match "ai-hairstyle-pa" or drop the existing database before registering.',
+          'MongoDB đang hoạt động trên hệ thống tệp không phân biệt hoa thường. Hãy đổi tên hoặc xoá cơ sở dữ liệu trùng trước khi đăng ký.',
       };
     }
 
     return {
-      error: 'Failed to create account. Please try again.',
+      error: 'Không thể tạo tài khoản, vui lòng thử lại.',
     };
   }
 
@@ -130,7 +130,7 @@ export async function loginAction(
   if (!parsed.success) {
     const fieldErrors = parsed.error.flatten().fieldErrors;
     return {
-      error: 'Please fix the errors below.',
+      error: 'Vui lòng kiểm tra lại thông tin.',
       fieldErrors: {
         email: fieldErrors.email?.[0],
         password: fieldErrors.password?.[0],
@@ -146,14 +146,14 @@ export async function loginAction(
     const user = await UserModel.findOne({ email }).select('+password');
     if (!user) {
       return {
-        error: 'Invalid email or password.',
+        error: 'Email hoặc mật khẩu không chính xác.',
       };
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return {
-        error: 'Invalid email or password.',
+        error: 'Email hoặc mật khẩu không chính xác.',
       };
     }
 
@@ -161,7 +161,7 @@ export async function loginAction(
   } catch (error) {
     console.error('loginAction error:', error);
     return {
-      error: 'Unable to sign in right now. Please try again.',
+      error: 'Hiện không thể đăng nhập, vui lòng thử lại sau.',
     };
   }
 

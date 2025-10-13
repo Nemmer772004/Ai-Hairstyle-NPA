@@ -24,8 +24,8 @@ export function RegisterForm() {
   return (
     <form action={formAction} className="grid gap-4">
       <div className="grid gap-2">
-        <Label htmlFor="username">Username</Label>
-        <Input id="username" name="username" placeholder="john_doe" required />
+        <Label htmlFor="username">Tên người dùng</Label>
+        <Input id="username" name="username" placeholder="nguyenvana" required />
         {currentState.fieldErrors?.username ? (
           <p className="text-sm text-destructive">
             {currentState.fieldErrors.username}
@@ -38,7 +38,7 @@ export function RegisterForm() {
           id="email"
           name="email"
           type="email"
-          placeholder="m@example.com"
+          placeholder="ban@example.com"
           required
         />
         {currentState.fieldErrors?.email ? (
@@ -48,8 +48,8 @@ export function RegisterForm() {
         ) : null}
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="password">Password</Label>
-        <Input id="password" name="password" type="password" required />
+        <Label htmlFor="password">Mật khẩu</Label>
+        <Input id="password" name="password" type="password" placeholder="••••••••" required />
         {currentState.fieldErrors?.password ? (
           <p className="text-sm text-destructive">
             {currentState.fieldErrors.password}
@@ -62,7 +62,7 @@ export function RegisterForm() {
         </p>
       ) : null}
       <Button className="w-full" type="submit" disabled={isPending}>
-        Create account
+        Tạo tài khoản
       </Button>
     </form>
   );

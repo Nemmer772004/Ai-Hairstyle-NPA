@@ -3,13 +3,13 @@
     {
       "id": "hero-before-after",
       "description": "A woman before and after using the AI hairstyle generator",
-      "imageUrl": "https://images.unsplash.com/photo-1596700238634-1491a3fee2b2?q=80&w=1200",
+      "imageUrl": "https://picsum.photos/seed/hero/1200/600",
       "imageHint": "woman portrait"
     },
     {
       "id": "user-upload-placeholder",
       "description": "Placeholder for user uploaded image",
-      "imageUrl": "https://images.unsplash.com/photo-1595779379128-9430a59426e9?q=80&w=512",
+      "imageUrl": "https://picsum.photos/seed/user-upload/512/512",
       "imageHint": "portrait placeholder"
     }
   ],
@@ -19,7 +19,7 @@
       "name": "Pixie Cut",
       "category": "short",
       "description": "A short pixie cut suitable for oval faces.",
-      "imageUrl": "https://images.unsplash.com/photo-1599423528469-835b604aa8a8?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/pixie-cut/400/400",
       "imageHint": "pixie haircut",
       "suitableFaces": [
         "oval",
@@ -32,7 +32,7 @@
       "name": "Long Wavy Blonde",
       "category": "long",
       "description": "Flowing long and wavy blonde hair.",
-      "imageUrl": "https://images.unsplash.com/photo-1615211923922-38416d871759?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/long-wavy-blonde/400/400",
       "imageHint": "long wavy hair",
       "suitableFaces": [
         "oval",
@@ -46,7 +46,7 @@
       "name": "Classic Bob",
       "category": "bob",
       "description": "A timeless classic bob cut.",
-      "imageUrl": "https://images.unsplash.com/photo-1610480356555-53531d70b40b?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/classic-bob/400/400",
       "imageHint": "bob haircut",
       "suitableFaces": [
         "oval",
@@ -60,7 +60,7 @@
       "name": "Buzz Cut",
       "category": "buzz",
       "description": "A very short and bold buzz cut.",
-      "imageUrl": "https://images.unsplash.com/photo-1601931999966-526487c6b96b?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/buzz-cut/400/400",
       "imageHint": "buzz cut",
       "suitableFaces": [
         "oval",
@@ -74,7 +74,7 @@
       "name": "Curtain Bangs",
       "category": "bangs",
       "description": "Stylish curtain bangs to frame the face.",
-      "imageUrl": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/curtain-bangs/400/400",
       "imageHint": "curtain bangs",
       "suitableFaces": [
         "round",
@@ -88,7 +88,7 @@
       "name": "Medium Shag",
       "category": "medium",
       "description": "A textured medium-length shag haircut.",
-      "imageUrl": "https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/medium-shag/400/400",
       "imageHint": "shag haircut",
       "suitableFaces": [
         "oval",
@@ -101,7 +101,7 @@
       "name": "Long Extensions",
       "category": "extension",
       "description": "Add length and volume with extensions.",
-      "imageUrl": "https://images.unsplash.com/photo-1521577352947-495454a8a491?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/long-extensions/400/400",
       "imageHint": "hair extensions",
       "suitableFaces": [
         "oval",
@@ -116,7 +116,7 @@
       "name": "Vibrant Red Color",
       "category": "color",
       "description": "A bold and vibrant red hair color.",
-      "imageUrl": "https://images.unsplash.com/photo-1596700238634-1491a3fee2b2?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/vibrant-red/400/400",
       "imageHint": "red hair",
       "suitableFaces": [
         "oval",
@@ -129,7 +129,7 @@
       "name": "Short Wavy Curls",
       "category": "short",
       "description": "Playful and short wavy curls.",
-      "imageUrl": "https://images.unsplash.com/photo-1605980026195-8206906b3f9b?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/wavy-curls-short/400/400",
       "imageHint": "short curly hair",
       "suitableFaces": [
         "round",
@@ -142,7 +142,7 @@
       "name": "Long Straight",
       "category": "long",
       "description": "Sleek and straight long hair.",
-      "imageUrl": "https://images.unsplash.com/photo-1607006478315-5c5a774659b8?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/long-straight/400/400",
       "imageHint": "long straight hair",
       "suitableFaces": [
         "oval",
@@ -155,7 +155,7 @@
       "name": "Asymmetrical Bob",
       "category": "bob",
       "description": "A modern and edgy asymmetrical bob.",
-      "imageUrl": "https://images.unsplash.com/photo-1611601338338-30c6c738caf5?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/asymmetrical-bob/400/400",
       "imageHint": "asymmetrical bob",
       "suitableFaces": [
         "oval",
@@ -169,7 +169,7 @@
       "name": "Blunt Bangs",
       "category": "bangs",
       "description": "Bold and straight-across blunt bangs.",
-      "imageUrl": "https://images.unsplash.com/photo-1615881726509-58b5cafc9416?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/blunt-bangs/400/400",
       "imageHint": "blunt bangs",
       "suitableFaces": [
         "oval",
@@ -182,7 +182,7 @@
       "name": "Medium Layers",
       "category": "medium",
       "description": "Medium length hair with soft layers.",
-      "imageUrl": "https://images.unsplash.com/photo-1604675223636-f8594514781d?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/medium-layers/400/400",
       "imageHint": "medium layered hair",
       "suitableFaces": [
         "round",
@@ -196,7 +196,7 @@
       "name": "Pastel Pink Color",
       "category": "color",
       "description": "A dreamy pastel pink hair color.",
-      "imageUrl": "https://images.unsplash.com/photo-1587843406381-1b3e8a7356ad?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/pastel-pink-color/400/400",
       "imageHint": "pink hair",
       "suitableFaces": [
         "oval",
@@ -209,7 +209,7 @@
       "name": "Crew Cut",
       "category": "short",
       "description": "A classic, short crew cut.",
-      "imageUrl": "https://images.unsplash.com/photo-1595563385317-9036ba920e54?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/crew-cut/400/400",
       "imageHint": "crew cut",
       "suitableFaces": [
         "oval",
@@ -222,7 +222,7 @@
       "name": "Beach Waves",
       "category": "long",
       "description": "Effortless and stylish beach waves.",
-      "imageUrl": "https://images.unsplash.com/photo-1611042553484-a1ce5f475a8a?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/beach-waves/400/400",
       "imageHint": "beach waves hair",
       "suitableFaces": [
         "oval",
@@ -236,7 +236,7 @@
       "name": "Afro",
       "category": "short",
       "description": "A full, natural afro.",
-      "imageUrl": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/afro/400/400",
       "imageHint": "afro hair",
       "suitableFaces": [
         "round",
@@ -250,7 +250,7 @@
       "name": "Slicked Back",
       "category": "short",
       "description": "A sharp, slicked back look.",
-      "imageUrl": "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/slicked-back/400/400",
       "imageHint": "slicked back hair",
       "suitableFaces": [
         "oval",
@@ -263,7 +263,7 @@
       "name": "Long Braids",
       "category": "long",
       "description": "Beautiful, long braided hair.",
-      "imageUrl": "https://images.unsplash.com/photo-1628892476906-f6b0064f26ef?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/long-braids/400/400",
       "imageHint": "long braids",
       "suitableFaces": [
         "oval",
@@ -276,7 +276,7 @@
       "name": "Lob (Long Bob)",
       "category": "bob",
       "description": "A trendy long bob.",
-      "imageUrl": "https://images.unsplash.com/photo-1573766022333-d8da353522f7?q=80&w=400",
+      "imageUrl": "https://picsum.photos/seed/lob/400/400",
       "imageHint": "long bob haircut",
       "suitableFaces": [
         "oval",

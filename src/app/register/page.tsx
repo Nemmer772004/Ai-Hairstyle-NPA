@@ -21,17 +21,17 @@ export default async function RegisterPage() {
     <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-background">
       <Card className="w-full max-w-sm shadow-2xl">
         <CardHeader>
-          <CardTitle className="text-2xl font-headline">Register</CardTitle>
-          <CardDescription>Create an account to save your hairstyle history.</CardDescription>
+          <CardTitle className="text-2xl font-headline">Đăng ký</CardTitle>
+          <CardDescription>Tạo tài khoản để lưu lại lịch sử kiểu tóc và sản phẩm yêu thích.</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           <RegisterForm />
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <div className="text-center text-sm">
-            Already have an account?{' '}
+            Đã có tài khoản?{' '}
             <Link href="/login" className="underline text-primary hover:text-primary/80">
-              Sign in
+              Đăng nhập
             </Link>
           </div>
         </CardFooter>

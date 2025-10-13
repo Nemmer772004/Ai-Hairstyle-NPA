@@ -5,8 +5,8 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 
 export const metadata: Metadata = {
-  title: 'AI Hairstyle Studio',
-  description: 'Try 140+ AI Hairstyles Free!',
+  title: 'Studio Tóc AI',
+  description: 'Thử hơn 140 kiểu tóc bằng trí tuệ nhân tạo hoàn toàn miễn phí.',
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="vi" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { UploadCloud, Camera, SwitchCamera } from 'lucide-react';
+import { UploadCloud, Camera } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -43,8 +43,8 @@ export default function ImageUploader({ onImageUpload }: ImageUploaderProps) {
       setHasCameraPermission(false);
       toast({
         variant: 'destructive',
-        title: 'Camera Access Denied',
-        description: 'Please enable camera permissions in your browser to use this app.',
+        title: 'Không thể truy cập camera',
+        description: 'Hãy bật quyền sử dụng camera trong trình duyệt để tiếp tục.',
       });
     }
   };
@@ -83,8 +83,8 @@ export default function ImageUploader({ onImageUpload }: ImageUploaderProps) {
       if (file.size > 5 * 1024 * 1024) { // 5MB limit
         toast({
           variant: 'destructive',
-          title: 'File Too Large',
-          description: 'Please upload an image smaller than 5MB.',
+          title: 'Ảnh quá lớn',
+          description: 'Vui lòng chọn ảnh nhỏ hơn 5MB.',
         });
         return;
       }
@@ -97,8 +97,8 @@ export default function ImageUploader({ onImageUpload }: ImageUploaderProps) {
       reader.onerror = () => {
         toast({
           variant: 'destructive',
-          title: 'Read Error',
-          description: 'Could not read the selected file.',
+          title: 'Lỗi đọc file',
+          description: 'Không thể xử lý ảnh vừa chọn.',
         });
       }
       reader.readAsDataURL(file);
@@ -118,8 +118,8 @@ export default function ImageUploader({ onImageUpload }: ImageUploaderProps) {
       <Card className="w-full max-w-lg shadow-2xl">
         <Tabs defaultValue="upload" className="w-full" onValueChange={handleTabChange}>
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="upload">Upload Photo</TabsTrigger>
-            <TabsTrigger value="webcam">Live Camera</TabsTrigger>
+            <TabsTrigger value="upload">Tải ảnh lên</TabsTrigger>
+            <TabsTrigger value="webcam">Chụp trực tiếp</TabsTrigger>
           </TabsList>
           <TabsContent value="upload" className="p-6">
             <div
@@ -130,15 +130,15 @@ export default function ImageUploader({ onImageUpload }: ImageUploaderProps) {
               <input {...getInputProps()} />
               <UploadCloud className="w-16 h-16 text-muted-foreground mx-auto" />
               <p className="mt-4 text-lg font-semibold">
-                Drag photo here or
+                Kéo thả ảnh vào đây hoặc
               </p>
               <Button asChild variant="link" className="text-lg">
                 <label htmlFor="file-upload" className="cursor-pointer text-primary">
-                  click to upload
+                  nhấn để chọn ảnh
                   <input id="file-upload" {...getInputProps()} className="sr-only" />
                 </label>
               </Button>
-              <p className="text-sm text-muted-foreground mt-2">PNG or JPG (max 5MB)</p>
+              <p className="text-sm text-muted-foreground mt-2">Định dạng PNG hoặc JPG (tối đa 5MB)</p>
             </div>
           </TabsContent>
           <TabsContent value="webcam" className="p-6">
@@ -149,9 +149,9 @@ export default function ImageUploader({ onImageUpload }: ImageUploaderProps) {
                     {hasCameraPermission === false && (
                          <div className="absolute inset-0 flex items-center justify-center p-4">
                             <Alert variant="destructive">
-                                <AlertTitle>Camera Access Required</AlertTitle>
+                                <AlertTitle>Cần quyền truy cập camera</AlertTitle>
                                 <AlertDescription>
-                                    Please allow camera access to use this feature.
+                                    Vui lòng cấp quyền camera để sử dụng tính năng này.
                                 </AlertDescription>
                             </Alert>
                          </div>

@@ -5,7 +5,7 @@ const MONGODB_URI =
 
 if (!MONGODB_URI) {
   throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
+    'Vui lòng khai báo biến môi trường MONGODB_URI trong file .env.local'
   );
 }
 

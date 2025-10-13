@@ -43,8 +43,8 @@ export default function GeneratorPage() {
       setAnalysisResult(result);
       setState('analyzed');
       toast({
-        title: 'Analysis Complete',
-        description: 'We have analyzed your face and provided hairstyle suggestions.',
+        title: 'Đã phân tích xong',
+        description: 'Chúng tôi đã đánh giá khuôn mặt và đề xuất những kiểu tóc phù hợp.',
       });
     } catch (e) {
       const err = e as Error;
@@ -52,8 +52,8 @@ export default function GeneratorPage() {
       setState('error');
       toast({
         variant: 'destructive',
-        title: 'Analysis Failed',
-        description: err.message || 'Could not analyze the image.',
+        title: 'Phân tích thất bại',
+        description: err.message || 'Không thể phân tích hình ảnh, vui lòng thử lại.',
       });
     }
   };
@@ -94,13 +94,13 @@ export default function GeneratorPage() {
             <Button variant="ghost" size="icon" onClick={resetState}>
                 <ArrowLeft />
             </Button>
-            <h1 className="text-xl font-bold font-headline">Hairstyle</h1>
+            <h1 className="text-xl font-bold font-headline">Kiểu tóc</h1>
             <div className="w-8"></div>
         </div>
 
         {analysisResult && (
           <div className="mb-6 p-4 rounded-lg bg-secondary/50 border">
-            <h3 className="font-semibold flex items-center gap-2 mb-2"><Sparkles className="text-primary w-5 h-5"/> AI Analysis</h3>
+            <h3 className="font-semibold flex items-center gap-2 mb-2"><Sparkles className="text-primary w-5 h-5"/> Phân tích AI</h3>
             <p className="text-sm text-muted-foreground">{analysisResult.faceAnalysis}</p>
           </div>
         )}

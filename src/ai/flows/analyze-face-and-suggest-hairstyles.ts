@@ -32,12 +32,15 @@ const prompt = ai.definePrompt({
   name: 'analyzeFaceAndSuggestHairstylesPrompt',
   input: {schema: AnalyzeFaceAndSuggestHairstylesInputSchema},
   output: {schema: AnalyzeFaceAndSuggestHairstylesOutputSchema},
-  prompt: `Analyze the face in the following photo and suggest suitable hairstyles.
+  prompt: `Bạn là chuyên gia tạo kiểu tóc. Phân tích khuôn mặt trong ảnh sau và gợi ý các kiểu tóc phù hợp. Nếu ảnh KHÔNG chứa khuôn mặt người hoặc bạn không chắc chắn, hãy trả về:
+- faceAnalysis: "KHÔNG PHẢI KHUÔN MẶT NGƯỜI" (viết hoa)
+- suggestedHairstyles: [] (mảng rỗng)
 
 Photo: {{media url=photoDataUri}}
 
-Consider face shape, skin tone, and current hairstyle trends when making your suggestions.
-Return the analysis of the face, and then a list of suggested hairstyles.`,
+Hãy xem xét dáng mặt, tông da và xu hướng hiện tại. Trả lời bằng tiếng Việt, bao gồm:
+- 'faceAnalysis': đoạn mô tả ngắn gọn bằng tiếng Việt về đánh giá khuôn mặt (dáng mặt, ưu nhược điểm).
+- 'suggestedHairstyles': danh sách tối thiểu 3 kiểu tóc phù hợp (có thể giữ nguyên tên tiếng Anh nếu là tên chuẩn, nhưng phần mô tả vẫn tiếng Việt).`,
 });
 
 const analyzeFaceAndSuggestHairstylesFlow = ai.defineFlow(
