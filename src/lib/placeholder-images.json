@@ -3,13 +3,13 @@
     {
       "id": "hero-before-after",
       "description": "A woman before and after using the AI hairstyle generator",
-      "imageUrl": "https://picsum.photos/seed/hero/1200/600",
+      "imageUrl": "https://images.pexels.com/photos/4153003/pexels-photo-4153003.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600",
       "imageHint": "woman portrait"
     },
     {
       "id": "user-upload-placeholder",
       "description": "Placeholder for user uploaded image",
-      "imageUrl": "https://picsum.photos/seed/user-upload/512/512",
+      "imageUrl": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=512&h=512",
       "imageHint": "portrait placeholder"
     }
   ],
@@ -19,12 +19,9 @@
       "name": "Pixie Cut",
       "category": "short",
       "description": "A short pixie cut suitable for oval faces.",
-      "imageUrl": "https://picsum.photos/seed/pixie-cut/400/400",
+      "imageUrl": "https://images.pexels.com/photos/1319911/pexels-photo-1319911.jpeg?auto=compress&w=400&h=400",
       "imageHint": "pixie haircut",
-      "suitableFaces": [
-        "oval",
-        "heart"
-      ],
+      "suitableFaces": ["oval", "heart"],
       "popularity": 120
     },
     {
@@ -32,41 +29,19 @@
       "name": "Long Wavy Blonde",
       "category": "long",
       "description": "Flowing long and wavy blonde hair.",
-      "imageUrl": "https://picsum.photos/seed/long-wavy-blonde/400/400",
+      "imageUrl": "https://images.pexels.com/photos/458766/pexels-photo-458766.jpeg?auto=compress&w=400&h=400",
       "imageHint": "long wavy hair",
-      "suitableFaces": [
-        "oval",
-        "round",
-        "square"
-      ],
+      "suitableFaces": ["oval", "round", "square"],
       "popularity": 250
-    },
-    {
-      "id": "classic-bob",
-      "name": "Classic Bob",
-      "category": "bob",
-      "description": "A timeless classic bob cut.",
-      "imageUrl": "https://picsum.photos/seed/classic-bob/400/400",
-      "imageHint": "bob haircut",
-      "suitableFaces": [
-        "oval",
-        "square",
-        "heart"
-      ],
-      "popularity": 180
     },
     {
       "id": "buzz-cut",
       "name": "Buzz Cut",
       "category": "buzz",
       "description": "A very short and bold buzz cut.",
-      "imageUrl": "https://picsum.photos/seed/buzz-cut/400/400",
+      "imageUrl": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&w=400&h=400",
       "imageHint": "buzz cut",
-      "suitableFaces": [
-        "oval",
-        "square",
-        "round"
-      ],
+      "suitableFaces": ["oval", "square", "round"],
       "popularity": 90
     },
     {
@@ -74,134 +49,50 @@
       "name": "Curtain Bangs",
       "category": "bangs",
       "description": "Stylish curtain bangs to frame the face.",
-      "imageUrl": "https://picsum.photos/seed/curtain-bangs/400/400",
+      "imageUrl": "https://images.pexels.com/photos/3993466/pexels-photo-3993466.jpeg?auto=compress&w=400&h=400",
       "imageHint": "curtain bangs",
-      "suitableFaces": [
-        "round",
-        "heart",
-        "square"
-      ],
+      "suitableFaces": ["round", "heart", "square"],
       "popularity": 210
-    },
-    {
-      "id": "medium-shag",
-      "name": "Medium Shag",
-      "category": "medium",
-      "description": "A textured medium-length shag haircut.",
-      "imageUrl": "https://picsum.photos/seed/medium-shag/400/400",
-      "imageHint": "shag haircut",
-      "suitableFaces": [
-        "oval",
-        "round"
-      ],
-      "popularity": 150
     },
     {
       "id": "long-extensions",
       "name": "Long Extensions",
       "category": "extension",
       "description": "Add length and volume with extensions.",
-      "imageUrl": "https://picsum.photos/seed/long-extensions/400/400",
+      "imageUrl": "https://images.pexels.com/photos/837358/pexels-photo-837358.jpeg?auto=compress&w=400&h=400",
       "imageHint": "hair extensions",
-      "suitableFaces": [
-        "oval",
-        "round",
-        "square",
-        "heart"
-      ],
+      "suitableFaces": ["oval", "round", "square", "heart"],
       "popularity": 130
     },
-    {
-      "id": "vibrant-red",
-      "name": "Vibrant Red Color",
-      "category": "color",
-      "description": "A bold and vibrant red hair color.",
-      "imageUrl": "https://picsum.photos/seed/vibrant-red/400/400",
-      "imageHint": "red hair",
-      "suitableFaces": [
-        "oval",
-        "heart"
-      ],
-      "popularity": 100
-    },
+
     {
       "id": "wavy-curls-short",
       "name": "Short Wavy Curls",
       "category": "short",
       "description": "Playful and short wavy curls.",
-      "imageUrl": "https://picsum.photos/seed/wavy-curls-short/400/400",
+      "imageUrl": "https://images.pexels.com/photos/450214/pexels-photo-450214.jpeg?auto=compress&w=400&h=400",
       "imageHint": "short curly hair",
-      "suitableFaces": [
-        "round",
-        "heart"
-      ],
+      "suitableFaces": ["round", "heart"],
       "popularity": 160
-    },
-    {
-      "id": "long-straight",
-      "name": "Long Straight",
-      "category": "long",
-      "description": "Sleek and straight long hair.",
-      "imageUrl": "https://picsum.photos/seed/long-straight/400/400",
-      "imageHint": "long straight hair",
-      "suitableFaces": [
-        "oval",
-        "square"
-      ],
-      "popularity": 190
-    },
-    {
-      "id": "asymmetrical-bob",
-      "name": "Asymmetrical Bob",
-      "category": "bob",
-      "description": "A modern and edgy asymmetrical bob.",
-      "imageUrl": "https://picsum.photos/seed/asymmetrical-bob/400/400",
-      "imageHint": "asymmetrical bob",
-      "suitableFaces": [
-        "oval",
-        "heart",
-        "diamond"
-      ],
-      "popularity": 140
     },
     {
       "id": "blunt-bangs",
       "name": "Blunt Bangs",
       "category": "bangs",
       "description": "Bold and straight-across blunt bangs.",
-      "imageUrl": "https://picsum.photos/seed/blunt-bangs/400/400",
+      "imageUrl": "https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg?auto=compress&w=400&h=400",
       "imageHint": "blunt bangs",
-      "suitableFaces": [
-        "oval",
-        "square"
-      ],
+      "suitableFaces": ["oval", "square"],
       "popularity": 115
-    },
-    {
-      "id": "medium-layers",
-      "name": "Medium Layers",
-      "category": "medium",
-      "description": "Medium length hair with soft layers.",
-      "imageUrl": "https://picsum.photos/seed/medium-layers/400/400",
-      "imageHint": "medium layered hair",
-      "suitableFaces": [
-        "round",
-        "oval",
-        "heart"
-      ],
-      "popularity": 220
     },
     {
       "id": "pastel-pink-color",
       "name": "Pastel Pink Color",
       "category": "color",
       "description": "A dreamy pastel pink hair color.",
-      "imageUrl": "https://picsum.photos/seed/pastel-pink-color/400/400",
+      "imageUrl": "https://images.pexels.com/photos/1485031/pexels-photo-1485031.jpeg?auto=compress&w=400&h=400",
       "imageHint": "pink hair",
-      "suitableFaces": [
-        "oval",
-        "heart"
-      ],
+      "suitableFaces": ["oval", "heart"],
       "popularity": 85
     },
     {
@@ -209,80 +100,30 @@
       "name": "Crew Cut",
       "category": "short",
       "description": "A classic, short crew cut.",
-      "imageUrl": "https://picsum.photos/seed/crew-cut/400/400",
+      "imageUrl": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&w=400&h=400",
       "imageHint": "crew cut",
-      "suitableFaces": [
-        "oval",
-        "square"
-      ],
+      "suitableFaces": ["oval", "square"],
       "popularity": 95
     },
-    {
-      "id": "beach-waves",
-      "name": "Beach Waves",
-      "category": "long",
-      "description": "Effortless and stylish beach waves.",
-      "imageUrl": "https://picsum.photos/seed/beach-waves/400/400",
-      "imageHint": "beach waves hair",
-      "suitableFaces": [
-        "oval",
-        "round",
-        "heart"
-      ],
-      "popularity": 230
-    },
-    {
-      "id": "afro",
-      "name": "Afro",
-      "category": "short",
-      "description": "A full, natural afro.",
-      "imageUrl": "https://picsum.photos/seed/afro/400/400",
-      "imageHint": "afro hair",
-      "suitableFaces": [
-        "round",
-        "square",
-        "heart"
-      ],
-      "popularity": 170
-    },
+
     {
       "id": "slicked-back",
       "name": "Slicked Back",
       "category": "short",
       "description": "A sharp, slicked back look.",
-      "imageUrl": "https://picsum.photos/seed/slicked-back/400/400",
+      "imageUrl": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&w=400&h=400",
       "imageHint": "slicked back hair",
-      "suitableFaces": [
-        "oval",
-        "square"
-      ],
+      "suitableFaces": ["oval", "square"],
       "popularity": 110
-    },
-    {
-      "id": "long-braids",
-      "name": "Long Braids",
-      "category": "long",
-      "description": "Beautiful, long braided hair.",
-      "imageUrl": "https://picsum.photos/seed/long-braids/400/400",
-      "imageHint": "long braids",
-      "suitableFaces": [
-        "oval",
-        "round"
-      ],
-      "popularity": 165
     },
     {
       "id": "lob",
       "name": "Lob (Long Bob)",
       "category": "bob",
       "description": "A trendy long bob.",
-      "imageUrl": "https://picsum.photos/seed/lob/400/400",
+      "imageUrl": "https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg?auto=compress&w=400&h=400",
       "imageHint": "long bob haircut",
-      "suitableFaces": [
-        "oval",
-        "square",
-        "heart"
-      ],
+      "suitableFaces": ["oval", "square", "heart"],
       "popularity": 200
     }
   ]

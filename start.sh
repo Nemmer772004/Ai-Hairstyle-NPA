@@ -60,10 +60,10 @@ if [[ -z "$MONGO_URI" && -n "${MONGODB_URI:-}" ]]; then
 fi
 
 if [[ -z "$MONGO_URI" ]]; then
-  read -r -p "No MongoDB URI provided. Use default mongodb://localhost:27017/ai-hairstyle-pa? [Y/n] " yn
+  read -r -p "No MongoDB URI provided. Use default mongodb://localhost:27017/ai-hairstyle-npa? [Y/n] " yn
   yn=${yn:-Y}
   if [[ "$yn" =~ ^[Yy] ]]; then
-    MONGO_URI="mongodb://localhost:27017/ai-hairstyle-pa"
+    MONGO_URI="mongodb://localhost:27017/ai-hairstyle-npa"
   else
     echo "Please re-run with --mongo-uri or set MONGODB_URI env var"
     exit 1

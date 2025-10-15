@@ -32,10 +32,16 @@ export default function HairstyleSelector({ selectedHairstyle, onSelectHairstyle
     <div className="w-full">
       <h2 className="text-2xl font-bold mb-4 font-headline">Chọn kiểu tóc</h2>
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-9 mb-4">
-          <TabsTrigger value="all">Tất cả</TabsTrigger>
+        <TabsList className="mb-4 flex w-full flex-wrap gap-2 justify-start p-2 h-auto">
+          <TabsTrigger value="all" className="text-xs md:text-sm px-3 py-2 min-w-[6rem] whitespace-normal text-center leading-tight">
+            Tất cả
+          </TabsTrigger>
           {hairstyleCategories.map(cat => (
-            <TabsTrigger key={cat} value={cat} className="capitalize">
+            <TabsTrigger
+              key={cat}
+              value={cat}
+              className="capitalize text-xs md:text-sm px-3 py-2 min-w-[6rem] whitespace-normal text-center leading-tight"
+            >
               {translateHairstyleCategory(cat)}
             </TabsTrigger>
           ))}

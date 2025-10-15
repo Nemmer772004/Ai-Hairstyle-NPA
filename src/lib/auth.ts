@@ -54,14 +54,11 @@ export async function getCurrentUser() {
 
   const session = await SessionModel.findOne({ token }).lean<Session>();
   if (!session) {
-    // Clean up cookie if session not found
-    cookieStore.delete(SESSION_COOKIE_NAME);
     return null;
   }
 
   if (session.expiresAt.getTime() < Date.now()) {
     await SessionModel.deleteOne({ token });
-    cookieStore.delete(SESSION_COOKIE_NAME);
     return null;
   }
 
@@ -71,7 +68,6 @@ export async function getCurrentUser() {
 
   if (!user) {
     await SessionModel.deleteOne({ token });
-    cookieStore.delete(SESSION_COOKIE_NAME);
     return null;
   }
 
